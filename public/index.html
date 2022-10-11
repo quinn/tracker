@@ -1,20 +1,44 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="UTF-8">
-	<title>Title</title>
-	<link rel="stylesheet" href="dist/index.css">
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="dist/index.css">
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script type="importmap">
+	{
+		"imports": {
+			"alpinejs": "https://esm.sh/alpinejs@3.10.4",
+			"axios": "https://esm.sh/axios@1.1.2",
+		    "@tanstack/react-query": "https://esm.sh/@tanstack/react-query@4.10.3",
+			"use-sync-external-store": "https://esm.sh/use-sync-external-store@1.2.0"
+		}
+	}
+    </script>
 </head>
-<body>
-	<h1 class="text-3xl font-bold underline">Hello world!
-	</h1>
+<body class="bg-neutral-900 text-lime-200">
+<div class="root">
+    <div class="border-r border-neutral-700 p-3">
+        Sidebar
+    </div>
 
-	<template id="my-paragraph">
-		<p>My paragraph</p>
-	</template>
+    <div>
+        <div class="border-b border-neutral-700 p-3">
+            <h1 class="text-3xwl font-bold underline">Hello world!</h1>
+        </div>
 
-	<script type="module" src="dist/index.js"></script>
+        <div class="p-3">
+            body content
+        </div>
+    </div>
+</div>
 
-	<my-paragraph></my-paragraph>
+<!--		<template id="my-paragraph">-->
+<!--			<p>My paragraph</p>-->
+<!--		</template>-->
+
+<script type="module" src="dist/index.js"></script>
+
+<!--		<my-paragraph></my-paragraph>-->
 </body>
 </html>
