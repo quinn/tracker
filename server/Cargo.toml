@@ -1,0 +1,15 @@
+[package]
+name = "tracker"
+version = "0.1.0"
+authors = ["Quinn Shanahan <q.shanahan@gmail.com>"]
+edition = "2018"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+rocket = { version = "=0.5.0-rc.2", default-features = false, features = ["json"] }
+rocket_okapi = { version = "0.8.0-rc.2" }
+schemars = "0.8.11"
+okapi = { version = "0.4.0", features = ["derive_json_schema"] }
+serde = "1.0"
+

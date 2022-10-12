@@ -5,3 +5,4 @@ public/dist
 #Added by cargo
 
 /target
+/dist
