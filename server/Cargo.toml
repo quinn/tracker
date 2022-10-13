@@ -1,5 +1,5 @@
 [package]
-name = "tracker"
+name = "tracker_server"
 version = "0.1.0"
 authors = ["Quinn Shanahan <q.shanahan@gmail.com>"]
 edition = "2018"
@@ -12,4 +12,6 @@ rocket_okapi = { version = "0.8.0-rc.2" }
 schemars = "0.8.11"
 okapi = { version = "0.4.0", features = ["derive_json_schema"] }
 serde = "1.0"
-
+tracker_web = { path = "../web" }
+yew = { git = "https://github.com/yewstack/yew", branch = "master", features = ["ssr", "tokio"] }
+tokio = "*"

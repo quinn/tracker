@@ -1,7 +1,10 @@
 mod components;
 
 use crate::components::App;
+use yew::Renderer;
 
 fn main() {
-    yew::Renderer::<App>::new().render();
+    let renderer = Renderer::<App>::new();
+
+    renderer.hydrate();
 }

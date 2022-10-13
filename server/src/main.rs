@@ -13,10 +13,12 @@ use schemars::JsonSchema;
 // use rocket_okapi::settings::UrlObject;
 use rocket_okapi::{openapi, openapi_get_routes};
 use serde::{Deserialize, Serialize};
+use yew::ServerRenderer;
+use rocket::response::{content};
 
-#[get("/<file..>")]
-pub async fn index(file: PathBuf) -> Option<NamedFile> {
-    let path = Path::new("public/").join(file);
+#[get("/<file..>", rank = 2)]
+pub async fn assets(file: PathBuf) -> Option<NamedFile> {
+    let path = Path::new("../dist/").join(file);
 
     if !path.is_dir() && path.is_file() {
         return NamedFile::open(&path).await.ok();
@@ -35,6 +37,28 @@ pub async fn index(file: PathBuf) -> Option<NamedFile> {
 
     NamedFile::open(js_file).await.ok()
 }
+
+
+#[get("/", rank = 1)]
+pub async fn index() -> content::RawHtml<String> {
+    let renderer = ServerRenderer::<tracker_web::components::App>::new();
+    let rendered = renderer.render().await;
+
+    let path = Path::new("../dist/index.html");
+
+    let index_html = tokio::fs::read_to_string(path)
+    .await
+    .expect("failed to read index.html");
+
+    let (index_html_before, index_html_after) = index_html
+        .split_once("<!-- SPLIT_HERE -->")
+        .unwrap();
+    let index_html_before = index_html_before.to_owned();
+    let index_html_after = index_html_after.to_owned();
+
+    content::RawHtml(index_html_before + &rendered + &index_html_after)
+}
+
 
 #[derive(Serialize, Deserialize, JsonSchema)]
 #[serde(rename_all = "camelCase")]
@@ -67,7 +91,10 @@ async fn main() {
     let result = rocket::build()
         .mount(
             "/",
-            routes![index]
+            routes![
+                assets,
+                index
+            ]
         )
         .mount(
             "/api/",
