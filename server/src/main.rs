@@ -15,6 +15,8 @@ use rocket_okapi::{openapi, openapi_get_routes};
 use serde::{Deserialize, Serialize};
 use yew::ServerRenderer;
 use rocket::response::{content};
+//use rocket_cors::{AllowedHeaders, AllowedOrigins};
+
 
 #[get("/<file..>", rank = 2)]
 pub async fn assets(file: PathBuf) -> Option<NamedFile> {
@@ -101,7 +103,9 @@ async fn main() {
             openapi_get_routes![
                 get_all_users
             ]
-        ).launch().await;
+        )
+        .launch()
+        .await;
 
     match result {
         Ok(_) => println!("Rocket shut down gracefully."),

@@ -12,8 +12,12 @@ pub fn App() -> Html {
         }
     };
 
-    use_effect_with_deps(move |_| async {
-        let thing = default_api::get_all_users(&configuration::Configuration::default()).await;
+    use_effect_with_deps(move |_| {
+        wasm_bindgen_futures::spawn_local(async move {
+            let mut config = configuration::Configuration::default();
+//            config.base_path = "/api".to_owned();
+            let _thing = default_api::get_all_users(&config).await.unwrap();
+        });
     }, ());
 
     html! {

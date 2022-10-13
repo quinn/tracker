@@ -15,3 +15,4 @@ serde = "1.0"
 tracker_web = { path = "../web" }
 yew = { git = "https://github.com/yewstack/yew", branch = "master", features = ["ssr", "tokio"] }
 tokio = "*"
+rocket_cors = "0.5.1"
