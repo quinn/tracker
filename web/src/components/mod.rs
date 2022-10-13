@@ -1,5 +1,7 @@
+mod todo_list;
+pub use self::todo_list::TodoList;
+
 use yew::prelude::*;
-use crate::apis::*;
 
 #[function_component]
 pub fn App() -> Html {
@@ -11,14 +13,6 @@ pub fn App() -> Html {
             counter.set(value);
         }
     };
-
-    use_effect_with_deps(move |_| {
-        wasm_bindgen_futures::spawn_local(async move {
-            let mut config = configuration::Configuration::default();
-//            config.base_path = "/api".to_owned();
-            let _thing = default_api::get_all_users(&config).await.unwrap();
-        });
-    }, ());
 
     html! {
         <div class="bg-neutral-900 text-lime-200">
@@ -33,7 +27,7 @@ pub fn App() -> Html {
                     </div>
 
                     <div class="p-3">
-                        {"body content"}
+                        <TodoList />
                     </div>
                 </div>
             </div>
