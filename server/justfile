@@ -2,3 +2,5 @@
 
 migrate:
     sea-orm-cli migrate
+    sea-orm-cli generate entity \
+        -o entity/src/entities
