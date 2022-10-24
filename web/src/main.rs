@@ -1,6 +1,5 @@
-
-mod components;
 mod apis;
+mod components;
 mod models;
 
 use crate::components::App;
@@ -11,5 +10,3 @@ fn main() {
 
     renderer.hydrate();
 }
-
-

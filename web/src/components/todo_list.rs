@@ -3,18 +3,20 @@ use yew::suspense::*;
 use crate::apis::*;
 
 #[function_component]
-pub fn TodoList() -> Html {
+pub fn TodoList() -> HtmlResult {
     let future_users = use_future(|| async {
         let config = configuration::Configuration::default();
         let result = default_api::get_all_users(&config).await;
         result
-    });
+    })?;
 
-    let _users = future_users.unwrap();
+    let users = future_users.as_ref().unwrap();
 
-    html! {
+    Ok(html! {
         <div>
-            {"list of users goes here"}
+            {users.iter().map(|item| {
+                html! {<div></div>}
+            }).collect::<Html>()}
         </div>
-    }
+    })
 }

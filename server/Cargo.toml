@@ -16,3 +16,4 @@ tracker_web = { path = "../web" }
 yew = { git = "https://github.com/yewstack/yew", branch = "master", features = ["ssr", "tokio"] }
 tokio = "*"
 rocket_cors = "0.5.1"
+sqlx = { version = "0.6", features = [ "runtime-tokio-rustls", "offline" ] }

@@ -2,24 +2,32 @@
 
 set -e
 
-#npx tsc -w &
-#tsc_pid=$!
-
 npx tailwindcss \
-  -i ./web/index.css \
+  -i ./index.css \
   -o ./dist/index.css \
   --watch &
-tailwindcss_pid=$!
+tailwind_pid=$!
+
+cd web
+trunk watch &
+web_pid=$!
+
+cd ../server
+pmwatch -w . cargo run &
+server_pid=$!
 
 cleanup()
 {
   echo 'cleaning up tasks...'
 
-#  echo killing typescript: $tsc_pid
-#  kill $tsc_pid
+  echo killing tailwind: $tailwind_pid
+  kill $tailwind_pid
 
-  echo killing tailwind: $tailwindcss_pid
-  kill $tailwindcss_pid
+  echo killing web: $web_pid
+  kill $web_pid
+
+  echo killing server: $server_pid
+  kill $server_pid
 
   exit 0
 }

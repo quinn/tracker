@@ -5,19 +5,12 @@ use yew::prelude::*;
 
 #[function_component]
 pub fn App() -> Html {
-    let counter = use_state(|| 0);
-    let onclick = {
-        let counter = counter.clone();
-        move |_| {
-            let value = *counter + 1;	
-            counter.set(value);
-        }
-    };
+    let fallback = html! {<div>{"Loading..."}</div>};
 
     html! {
         <div class="bg-neutral-900 text-lime-200">
             <div class="root">
-                <div class="border-r border-neutral-700 p-3" {onclick}>
+                <div class="border-r border-neutral-700 p-3">
                     {"Sidebar"}
                 </div>
 
@@ -27,7 +20,9 @@ pub fn App() -> Html {
                     </div>
 
                     <div class="p-3">
-                        <TodoList />
+                        <Suspense {fallback}>
+                            <TodoList />
+                        </Suspense>
                     </div>
                 </div>
             </div>
