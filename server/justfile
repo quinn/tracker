@@ -1,0 +1,4 @@
+# set dotenv-load := true
+
+migrate:
+    sea-orm-cli migrate
