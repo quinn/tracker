@@ -15,7 +15,7 @@ use yew::ServerRenderer;
 //use rocket_cors::{AllowedHeaders, AllowedOrigins};
 
 mod routes;
-use routes::Assets;
+use routes::assets;
 
 static BASE_PATH: &str = "../web/dist/";
 
@@ -67,7 +67,7 @@ fn get_all_users() -> Json<Vec<User>> {
 #[rocket::main]
 async fn main() {
     let result = rocket::build()
-        .mount("/", routes![Assets, index])
+        .mount("/", routes![assets, index])
         .mount("/api/", openapi_get_routes![get_all_users])
         .launch()
         .await;

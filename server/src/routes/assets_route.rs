@@ -6,7 +6,7 @@ use std::path::PathBuf;
 static BASE_PATH: &str = "../web/dist/";
 
 #[get("/<file..>", rank = 2)]
-pub async fn Assets(file: PathBuf) -> Option<NamedFile> {
+pub async fn assets(file: PathBuf) -> Option<NamedFile> {
     let path = Path::new(BASE_PATH).join(file);
 
     if !path.is_dir() && path.is_file() {

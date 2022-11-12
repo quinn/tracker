@@ -1,2 +1,3 @@
-mod assets;
-pub use assets::Assets;
+mod assets_route;
+
+pub use assets_route::assets;

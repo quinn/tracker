@@ -1,0 +1,8 @@
+use rocket_okapi::openapi;
+use rocket::{get, serde::json::Json};
+
+#[openapi]
+#[get("/{{name}}")]
+fn {{name}}() -> Json<String> {
+    Json("")
+}
