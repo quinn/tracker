@@ -17,14 +17,14 @@ export default function (plop) {
 			{
 				type: 'modify',
 				path: 'src/routes/mod.rs',
-				pattern: /^mod.*/,
-				template: 'mod {{name}}_route',
+				pattern: /(mod .*)/gi,
+				template: '$1\nmod {{name}}_route;',
 			},
 			{
 				type: 'modify',
 				path: 'src/routes/mod.rs',
-				pattern: /^pub use.*/,
-				template: 'pub use {{name}}_route::{{name}}',
+				pattern: /(pub use .*)/gi,
+				template: '$1\npub use {{name}}_route::{{name}};',
 			},
 		]
 	})
