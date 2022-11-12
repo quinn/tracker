@@ -10,12 +10,16 @@ use schemars::JsonSchema;
 // use rocket_okapi::settings::UrlObject;
 use rocket::response::content;
 use rocket_okapi::{openapi, openapi_get_routes};
+use sea_orm_rocket::Database;
 use serde::{Deserialize, Serialize};
 use yew::ServerRenderer;
 //use rocket_cors::{AllowedHeaders, AllowedOrigins};
 
 mod routes;
 use routes::assets;
+
+mod pool;
+use pool::Db;
 
 static BASE_PATH: &str = "../web/dist/";
 
@@ -67,6 +71,7 @@ fn get_all_users() -> Json<Vec<User>> {
 #[rocket::main]
 async fn main() {
     let result = rocket::build()
+        .attach(Db::init())
         .mount("/", routes![assets, index])
         .mount("/api/", openapi_get_routes![get_all_users])
         .launch()

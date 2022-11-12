@@ -17,3 +17,6 @@ yew = { git = "https://github.com/yewstack/yew", branch = "master", features = [
 tokio = "*"
 rocket_cors = "0.5.1"
 sqlx = { version = "0.6", features = [ "runtime-tokio-rustls", "offline" ] }
+sea-orm = "*"
+sea-orm-rocket = "*"
+async-trait = { version = "0.1" }

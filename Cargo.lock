@@ -2723,6 +2723,26 @@ dependencies = [
 ]
 
 [[package]]
+name = "sea-orm-rocket"
+version = "0.5.2"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "30f30b2cf45d317def42af8542635e341fa4ae12fb0697a713346750ff426aa2"
+dependencies = [
+ "rocket 0.5.0-rc.2",
+ "sea-orm-rocket-codegen",
+]
+
+[[package]]
+name = "sea-orm-rocket-codegen"
+version = "0.5.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "0bfd750adb2541f30b855e2d86e90bf7031ac17e048ac5226a8e8c8d8a6022f2"
+dependencies = [
+ "devise 0.3.1",
+ "quote 1.0.21",
+]
+
+[[package]]
 name = "sea-query"
 version = "0.27.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -3436,11 +3456,14 @@ dependencies = [
 name = "tracker_server"
 version = "0.1.0"
 dependencies = [
+ "async-trait",
  "okapi 0.4.0",
  "rocket 0.5.0-rc.2",
  "rocket_cors",
  "rocket_okapi",
  "schemars 0.8.11",
+ "sea-orm",
+ "sea-orm-rocket",
  "serde",
  "sqlx",
  "tokio",
