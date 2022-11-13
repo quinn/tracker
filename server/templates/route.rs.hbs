@@ -1,8 +1,11 @@
-use rocket_okapi::openapi;
 use rocket::{get, serde::json::Json};
+use rocket_okapi::openapi;
+use sea_orm_rocket::Connection;
+
+use crate::pool::Db;
 
 #[openapi]
 #[get("/{{name}}")]
-fn {{name}}() -> Json<String> {
-    Json("")
+pub fn {{name}}(conn: Connection<'_, Db>) -> Json<String> {
+    Json("".to_string())
 }

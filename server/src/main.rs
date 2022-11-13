@@ -15,8 +15,10 @@ use serde::{Deserialize, Serialize};
 use yew::ServerRenderer;
 //use rocket_cors::{AllowedHeaders, AllowedOrigins};
 
+use sea_orm_rocket::Connection;
+
 mod routes;
-use routes::assets;
+use routes::*;
 
 mod pool;
 use pool::Db;
@@ -60,7 +62,7 @@ fn example_email() -> &'static str {
 /// Returns all users in the system.
 #[openapi]
 #[get("/user")]
-fn get_all_users() -> Json<Vec<User>> {
+fn get_all_users(conn: Connection<'_, Db>) -> Json<Vec<User>> {
     Json(vec![User {
         user_id: 42,
         username: "bob".to_owned(),
@@ -73,7 +75,7 @@ async fn main() {
     let result = rocket::build()
         .attach(Db::init())
         .mount("/", routes![assets, index])
-        .mount("/api/", openapi_get_routes![get_all_users])
+        .mount("/api/", openapi_get_routes![get_all_users, tasks])
         .launch()
         .await;
 

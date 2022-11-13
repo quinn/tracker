@@ -24,7 +24,7 @@ export default function (plop) {
 				type: 'modify',
 				path: 'src/routes/mod.rs',
 				pattern: /(pub use .*)/gi,
-				template: '$1\npub use {{name}}_route::{{name}};',
+				template: '$1\npub use {{name}}_route::*;',
 			},
 		]
 	})

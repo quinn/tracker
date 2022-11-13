@@ -815,7 +815,10 @@ name = "entity"
 version = "0.1.0"
 dependencies = [
  "async-std",
+ "rocket_okapi",
+ "schemars 0.8.11",
  "sea-orm",
+ "serde",
 ]
 
 [[package]]
@@ -2729,6 +2732,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "30f30b2cf45d317def42af8542635e341fa4ae12fb0697a713346750ff426aa2"
 dependencies = [
  "rocket 0.5.0-rc.2",
+ "rocket_okapi",
  "sea-orm-rocket-codegen",
 ]
 
@@ -3457,6 +3461,7 @@ name = "tracker_server"
 version = "0.1.0"
 dependencies = [
  "async-trait",
+ "entity",
  "okapi 0.4.0",
  "rocket 0.5.0-rc.2",
  "rocket_cors",
