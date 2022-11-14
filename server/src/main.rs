@@ -23,6 +23,8 @@ use routes::*;
 mod pool;
 use pool::Db;
 
+mod models;
+
 static BASE_PATH: &str = "../web/dist/";
 
 #[get("/", rank = 1)]
@@ -75,7 +77,10 @@ async fn main() {
     let result = rocket::build()
         .attach(Db::init())
         .mount("/", routes![assets, index])
-        .mount("/api/", openapi_get_routes![get_all_users, tasks])
+        .mount(
+            "/api/",
+            openapi_get_routes![get_all_users, tasks, create_task],
+        )
         .launch()
         .await;
 

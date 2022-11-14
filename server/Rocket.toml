@@ -1,0 +1,2 @@
+[default.databases.tracker]
+url = "postgres:///tracker?port=5432&host=/run/postgresql"

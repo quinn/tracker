@@ -1,3 +1,4 @@
+use crate::models;
 use crate::pool::Db;
 use entity::task;
 use rocket::http::Status;
@@ -16,13 +17,17 @@ pub struct ErrorMessage {
 #[get("/tasks")]
 pub async fn tasks(
     conn: Connection<'_, Db>,
-) -> Result<Json<Vec<task::Model>>, (Status, Json<ErrorMessage>)> {
+) -> Result<Json<Vec<models::Task>>, (Status, Json<ErrorMessage>)> {
     let db = conn.into_inner();
 
     let result = task::Entity::find().all(db).await;
 
     match result {
-        Ok(l) => return Ok(Json(l)),
+        Ok(tasks) => {
+            return Ok(Json(
+                tasks.into_iter().map(|t| models::Task::from(t)).collect(),
+            ))
+        }
         Err(_) => {
             return Err((
                 Status::InternalServerError,
