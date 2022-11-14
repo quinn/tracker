@@ -2,6 +2,8 @@
 
 out=openapi-generator-output
 
+mkdir $out
+
 openapi-generator generate -g rust \
     -i http://localhost:8000/api/openapi.json \
     -o $out
