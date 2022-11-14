@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-out=openapi-generator-output
+out=../../openapi-generator-output
 
 mkdir $out
 
@@ -15,3 +15,5 @@ rm -rf src/models
 mv $out/src/models src/
 
 rm -rf $out
+
+cargo fmt

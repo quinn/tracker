@@ -9,13 +9,15 @@
  */
 
 #[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
-pub struct ErrorMessage {
-    #[serde(rename = "message")]
-    pub message: String,
+pub struct Task {
+    #[serde(rename = "id")]
+    pub id: String,
+    #[serde(rename = "summary")]
+    pub summary: String,
 }
 
-impl ErrorMessage {
-    pub fn new(message: String) -> ErrorMessage {
-        ErrorMessage { message }
+impl Task {
+    pub fn new(id: String, summary: String) -> Task {
+        Task { id, summary }
     }
 }

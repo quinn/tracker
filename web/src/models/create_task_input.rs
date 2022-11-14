@@ -9,26 +9,20 @@
  */
 
 #[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
-pub struct User {
-    #[serde(rename = "userId")]
-    pub user_id: i32,
-    #[serde(rename = "username")]
-    pub username: String,
+pub struct CreateTaskInput {
     #[serde(
-        rename = "email",
+        rename = "id",
         default,
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub email: Option<Option<String>>,
+    pub id: Option<Option<String>>,
+    #[serde(rename = "summary")]
+    pub summary: String,
 }
 
-impl User {
-    pub fn new(user_id: i32, username: String) -> User {
-        User {
-            user_id,
-            username,
-            email: None,
-        }
+impl CreateTaskInput {
+    pub fn new(summary: String) -> CreateTaskInput {
+        CreateTaskInput { id: None, summary }
     }
 }

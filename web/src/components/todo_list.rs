@@ -1,6 +1,6 @@
+use crate::apis::*;
 use yew::prelude::*;
 use yew::suspense::*;
-use crate::apis::*;
 
 #[function_component]
 pub fn TodoList() -> HtmlResult {
