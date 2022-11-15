@@ -17,6 +17,10 @@ pub fn TodoList() -> HtmlResult {
             {users.iter().map(|item| {
                 html! {<div></div>}
             }).collect::<Html>()}
+
+            <form onsubmit={|_e| { web_sys::console::log_1(&format!("hello").into()) }}>
+                <input />
+            </form>
         </div>
     })
 }

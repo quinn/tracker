@@ -3550,6 +3550,7 @@ dependencies = [
  "serde_with",
  "url 2.3.1",
  "wasm-bindgen-futures",
+ "web-sys",
  "yew",
 ]
 
