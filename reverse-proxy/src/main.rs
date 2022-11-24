@@ -1,34 +1,21 @@
+use axum::body::Body;
+use axum::response::Response;
+use axum::routing::get;
 use axum::{extract::ConnectInfo, http::StatusCode, routing::any, Router};
-use hyper::{Body, Request, Response};
-use std::net::IpAddr;
-use std::{convert::Infallible, net::SocketAddr};
-
-fn debug_request(req: Request<Body>) -> Result<Response<Body>, Infallible> {
-    let body_str = format!("hi {:?}", req);
-    Ok(Response::new(Body::from(body_str)))
-}
+use hyper::Request;
+// use hyper::{Body, Request, Response};
+use std::{
+    convert::Infallible,
+    net::{IpAddr, SocketAddr},
+};
 
 async fn handle(client_ip: IpAddr, req: Request<Body>) -> Result<Response<Body>, Infallible> {
-    if req.uri().path().starts_with("/target/first") {
-        // will forward requests to port 13901
-        match hyper_reverse_proxy::call(client_ip, "http://127.0.0.1:13901", req).await {
-            Ok(response) => Ok(response),
-            Err(_error) => Ok(Response::builder()
-                .status(StatusCode::INTERNAL_SERVER_ERROR)
-                .body(Body::empty())
-                .unwrap()),
-        }
-    } else if req.uri().path().starts_with("/target/second") {
-        // will forward requests to port 13902
-        match hyper_reverse_proxy::call(client_ip, "http://127.0.0.1:13902", req).await {
-            Ok(response) => Ok(response),
-            Err(_error) => Ok(Response::builder()
-                .status(StatusCode::INTERNAL_SERVER_ERROR)
-                .body(Body::empty())
-                .unwrap()),
-        }
-    } else {
-        debug_request(req)
+    match hyper_reverse_proxy::call(client_ip, "https://google.com/", req).await {
+        Ok(response) => Ok(response),
+        Err(error) => Ok(Response::builder()
+            .status(StatusCode::INTERNAL_SERVER_ERROR)
+            .body(format!("error: {:?}", error).into())
+            .unwrap()),
     }
 }
 
@@ -44,7 +31,16 @@ async fn main() {
         handle(addr.ip(), req).await
     }
 
-    let app = Router::new().route("/", any(hello));
+    async fn handler(
+        ConnectInfo(addr): ConnectInfo<SocketAddr>,
+        req: Request<Body>,
+    ) -> Result<Response<Body>, Infallible> {
+        handle(addr.ip(), req).await
+    }
+
+    let app = Router::new()
+        .route("/", any(hello))
+        .route("/test", any(handler));
 
     let server =
         axum::Server::bind(&baddr).serve(app.into_make_service_with_connect_info::<SocketAddr>());
