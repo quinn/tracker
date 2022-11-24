@@ -4,3 +4,9 @@ migrate:
     sea-orm-cli migrate
     sea-orm-cli generate entity \
         -o entity/src/entities
+
+run:
+    cargo watch \
+        -w ./src \
+        -w ../web/src \
+        -x run

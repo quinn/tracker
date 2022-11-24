@@ -23,16 +23,12 @@ pub async fn tasks(
     let result = task::Entity::find().all(db).await;
 
     match result {
-        Ok(tasks) => {
-            return Ok(Json(
-                tasks.into_iter().map(|t| models::Task::from(t)).collect(),
-            ))
-        }
+        Ok(tasks) => return Ok(Json(tasks.into_iter().map(|t| t.into()).collect())),
         Err(_) => {
             return Err((
                 Status::InternalServerError,
                 Json(ErrorMessage {
-                    message: String::from("could not query database"),
+                    message: "could not query database".into(),
                 }),
             ))
         }

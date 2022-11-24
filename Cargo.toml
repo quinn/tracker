@@ -1,2 +1,0 @@
-[workspace]
-members = ["web", "server", "server/migration", "server/entity"]

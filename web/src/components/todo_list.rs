@@ -18,7 +18,7 @@ pub fn TodoList() -> HtmlResult {
                 html! {<div></div>}
             }).collect::<Html>()}
 
-            <form onsubmit={|_e| { web_sys::console::log_1(&format!("hello").into()) }}>
+            <form onsubmit={|e: SubmitEvent| { e.prevent_default(); web_sys::console::log_1(&format!("hello").into()) }}>
                 <input />
             </form>
         </div>
